@@ -7,7 +7,7 @@ DHT dht(pino_dht, DHT11);
 const int ledPinG = 7;
 const int ledPinR = 6;
 const int ledPinY = 5;
-
+//oi
 void setup() {
   Serial.begin(9600);
   pinMode(ledPinG, OUTPUT);
