@@ -4,15 +4,15 @@ const int pino_dht = 9;
 float temperatura;
 float umidade;
 DHT dht(pino_dht, DHT11);
-const int ledPinV = 7;
+const int ledPinG = 7;
 const int ledPinR = 6;
-const int ledPinA = 5;
+const int ledPinY = 5;
 
 void setup() {
   Serial.begin(9600);
-  pinMode(ledPinV, OUTPUT);
+  pinMode(ledPinG, OUTPUT);
   pinMode(ledPinR, OUTPUT);
-  pinMode(ledPinA, OUTPUT);
+  pinMode(ledPinY, OUTPUT);
   dht.begin();
 }
 
@@ -36,9 +36,9 @@ void loop() {
     }
 
     if (comando == "led_verde_ligando") {
-      digitalWrite(ledPinV, HIGH);
+      digitalWrite(ledPinG, HIGH);
     } else if (comando == "led_verde_desligando") {
-      digitalWrite(ledPinV, LOW);
+      digitalWrite(ledPinG, LOW);
     }
     if (comando == "led_vermelho_ligando") {
       digitalWrite(ledPinR, HIGH);
@@ -46,9 +46,9 @@ void loop() {
       digitalWrite(ledPinR, LOW);
     }
     if (comando == "led_amarelo_ligando") {
-      digitalWrite(ledPinA, HIGH);
+      digitalWrite(ledPinY, HIGH);
     } else if (comando == "led_amarelo_desligando") {
-      digitalWrite(ledPinA, LOW);
+      digitalWrite(ledPinY, LOW);
     }
   }
 }
