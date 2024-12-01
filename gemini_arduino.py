@@ -8,15 +8,15 @@ import keyboard
 def main():
     assistente_falante = True
     ligar_microfone = True
-    arduino = serial.Serial('COM3', 9600)
+    arduino = serial.Serial('COM4', 9600)
     time.sleep(2)
 
-    genai.configure(api_key="SUA_CHAVE_API")
+    genai.configure(api_key="AIzaSyCArxGzhoB1T-GF0YcfKux9OxtN6Qhos2c")
     
     model = genai.GenerativeModel('gemini-pro')
     chat = model.start_chat(history=[])
 
-    contexto = "A partir de agora, eu atuarei como um sistema de controle para o Arduino, Tenho controle sobre LEDs e outros componentes, mas não posso acessar diretamente sensores de temperatura ou umidade. Quando um sensor de temperatura ou umidade for mencionado, eu apenas transmitirei as informações coletadas por um sensor conectado ao Arduino. Quando for mencionado leds eu respondo diretamente com comandos de ativação e desativação dos LEDs e outros componentes, sem formatação adicional como *. Responderei com palavras-chave claras para cada ação, apenas com 'led verde ligando', 'led verde desligando', 'led vermelho ligando', 'led vermelho desligando', 'led amarelo ligando', 'led amarelo desligando', para que o código interprete e execute corretamente cada comando. Se eu receber algo que não esteja relacionado a comandos, responderei de maneira simpática."
+    contexto = "A partir de agora, eu atuarei como um sistema de controle para o Arduino do sexo feminino, Tenho controle sobre LEDs e outros componentes, mas não posso acessar diretamente sensores de temperatura ou umidade. Quando um sensor de temperatura ou umidade for mencionado, eu apenas transmitirei as informações coletadas por um sensor conectado ao Arduino. Quando for mencionado leds eu respondo diretamente com comandos de ativação e desativação dos LEDs e outros componentes, sem formatação adicional como *. Responderei com palavras-chave claras para cada ação, apenas com 'led verde ligando', 'led verde desligando', 'led vermelho ligando', 'led vermelho desligando', 'led amarelo ligando', 'led amarelo desligando', para que o código interprete e execute corretamente cada comando. Se eu receber algo que não esteja relacionado a comandos, responderei de maneira simpática."
 
     if assistente_falante:
         engine = pyttsx3.init()
@@ -41,7 +41,9 @@ def main():
                     texto = r.recognize_google(audio, language="pt-BR")
                 except Exception:
                     texto = ""
-    
+        if ligar_microfone == False:
+            texto = input("Digite o comando")
+        
         full_input = contexto + "\nUsuário: " + texto
         
         if "temperatura" in texto.lower() or "umidade" in texto.lower():
@@ -66,6 +68,7 @@ def main():
                 full_input += f"\nUmidade atual: {umidade}%"
             else:
                 print("Erro na leitura da temperatura ou umidade.")
+        
 
         response = chat.send_message(full_input)
         print("Gemini:", response.text)
